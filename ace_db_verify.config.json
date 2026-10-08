@@ -1,0 +1,43 @@
+{
+  "_note": "Keys starting with _ are comments. Put this file next to ace_db_verify.py; it is picked up automatically.",
+
+  "project": "ace_db",
+  "release": "ACE_GWP_ID",
+
+  "_expected_schemas": "Entity set rule: an object found in any of these schemas must exist in all of them.",
+  "expected_schemas": ["cmy", "csg", "dbo"],
+  "entity_set_types": ["Table", "Tvf", "Procedure", "Data"],
+  "_entity_set_exclude": "Regexes on the file name without schema, e.g. \"^ACE_CONFIG_\" to skip a group.",
+  "entity_set_exclude": [],
+
+  "_cross_schema_allow": "Allowed cross-schema references, e.g. staging migration procs that read dbo tables.",
+  "cross_schema_allow": [
+    {"from": "staging", "to": "dbo", "file_regex": "__example_only__", "object_regex": ""}
+  ],
+
+  "_preexisting_objects": "Objects that already exist in PROD: CREATE OR ALTER deploy may roll back with ALTER. Same as a '-- verify:preexisting' comment in the deploy script.",
+  "preexisting_objects": [],
+  "create_or_alter_rollback": ["DROP"],
+
+  "deploy_category_order": ["Table", "Tvf", "Procedure", "Data"],
+  "rollback_category_order": ["Data", "Procedure", "Tvf", "Table"],
+  "allowed_dbms": ["mssql"],
+  "expected_encoding": "UTF-8",
+
+  "_severity_overrides": "e.g. {\"inv.entity_set\": \"WARNING\"}",
+  "severity_overrides": {},
+  "_suppress": "e.g. [{\"check\": \"ver.schema_mismatch\", \"file_regex\": \"MigrationACERule\"}]",
+  "suppress": [],
+
+  "_sqlcmd": "Only used with --compile (SET NOEXEC ON: compile only, nothing is executed). Same settings as run_changelog_sql.bat.",
+  "sqlcmd": {
+    "exe": "sqlcmd",
+    "server": "SWCOLDBOS0B.TECH.OCBC.NET,1440",
+    "database": "CLMS_GWP_ID",
+    "trusted": true,
+    "user": null,
+    "password_env": "ACE_DB_PASSWORD",
+    "login_timeout": 15,
+    "file_timeout": 300
+  }
+}
