@@ -39,7 +39,18 @@ set "OUT=reports\db_verification_report.html"
 set "EXTRA="
 if "%COMPILE%"=="1" set "EXTRA=--compile"
 
-%PY% "%~dp0ace_db_verify.py" --changelog "%CHANGELOG%" --out "%OUT%" %EXTRA% %*
+REM Locate the tool: ACE_DB_VERIFY_HOME (a checkout of DBVerifyTool) > ace_db_verify.py next to this bat
+REM > ace_db_verify.py one level up (bat run from a checkout's scripts\ folder) > installed package
+set "TOOL="
+if defined ACE_DB_VERIFY_HOME if exist "%ACE_DB_VERIFY_HOME%\ace_db_verify.py" set "TOOL=%ACE_DB_VERIFY_HOME%\ace_db_verify.py"
+if not defined TOOL if exist "%~dp0ace_db_verify.py" set "TOOL=%~dp0ace_db_verify.py"
+if not defined TOOL for %%I in ("%~dp0..") do if exist "%%~fI\ace_db_verify.py" set "TOOL=%%~fI\ace_db_verify.py"
+
+if defined TOOL (
+    %PY% "%TOOL%" --changelog "%CHANGELOG%" --out "%OUT%" %EXTRA% %*
+) else (
+    %PY% -m ace_db_verify --changelog "%CHANGELOG%" --out "%OUT%" %EXTRA% %*
+)
 set "RC=%ERRORLEVEL%"
 
 if "%OPEN_REPORT%"=="1" if exist "%OUT%" start "" "%OUT%"

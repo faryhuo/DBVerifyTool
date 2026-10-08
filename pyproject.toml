@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ace-db-verify"
+dynamic = ["version"]
+description = "Static verification of ACE DB deploy/rollback SQL scripts referenced by a Liquibase-style changelog."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-cov>=4", "ruff>=0.4"]
+
+[project.scripts]
+ace-db-verify = "ace_db_verify.cli:run"
+
+[tool.setuptools.dynamic]
+version = { attr = "ace_db_verify.constants.VERSION" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+markers = [
+    "unit: fast, isolated tests",
+    "integration: run the full CLI against the fixture project",
+]
+
+[tool.coverage.run]
+source = ["ace_db_verify"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py38"
+src = ["src", "tests"]

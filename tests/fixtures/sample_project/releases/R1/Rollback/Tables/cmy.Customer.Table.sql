@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS cmy.Customer;
+GO

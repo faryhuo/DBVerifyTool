@@ -1,5 +1,5 @@
 {
-  "_note": "Keys starting with _ are comments. Put this file next to ace_db_verify.py; it is picked up automatically.",
+  "_note": "Keys starting with _ are comments. Put this file in the folder you run the tool from (next to run_verify.bat); it is picked up automatically.",
 
   "project": "ace_db",
   "release": "ACE_GWP_ID",

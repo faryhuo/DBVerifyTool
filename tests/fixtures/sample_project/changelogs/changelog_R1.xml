@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
+  <changeSet id="R1" author="dev">
+    <sqlFile path="../releases/R1/Deploy/Tables/dbo.Customer.Table.sql" dbms="mssql" encoding="UTF-8"/>
+    <sqlFile path="../releases/R1/Deploy/Tables/cmy.Customer.Table.sql" dbms="mssql" encoding="UTF-8"/>
+    <sqlFile path="../releases/R1/Deploy/Procedures/dbo.GetCustomer.StoredProcedure.sql" dbms="mssql" encoding="UTF-8"/>
+    <rollback>
+      <sqlFile path="../releases/R1/Rollback/Procedures/dbo.GetCustomer.StoredProcedure.sql" dbms="mssql" encoding="UTF-8"/>
+      <sqlFile path="../releases/R1/Rollback/Tables/dbo.Customer.Table.sql" dbms="mssql" encoding="UTF-8"/>
+    </rollback>
+  </changeSet>
+</databaseChangeLog>
